@@ -1,5 +1,8 @@
 const Page = require("./helpers/page");
 
+//bug type error
+Number.prototype._called = {};
+
 let page;
 
 beforeEach(async () => {
@@ -26,6 +29,8 @@ test("clicking loging start OAuth flow", async () => {
 
 test("when signed in, show logout button", async () => {
   await page.login();
+  await page.waitFor('a[href="/auth/logout"]');
+
   const text = await page.getContentsOf('a[href="/auth/logout"]');
 
   expect(text).toEqual("Logout");
